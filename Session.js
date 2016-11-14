@@ -14,16 +14,14 @@ var Session = (function () {
         
         create: function (options) {        
             //TODO : apply options to to private config            
-            config.sessionTimeout = options.sessionTimeout;
-                        
+            config.sessionTimeout = options.sessionTimeout;                        
             var initTime = new Date().getTime();
             this.update({
                 startTime: initTime,
                 refreshTime: initTime,
                 isExpireAlertOn: false,
                 isExpired: false
-            });
-            
+            });            
             this.registerEvents();
             this.setupPolling();
             console.log("Session created");
@@ -57,31 +55,23 @@ var Session = (function () {
             });            
         },
         
-        warn: function () {
-            
+        warn: function () {            
             var _session = this.getSession();
-
-            if (!_session.isExpired) {
-            
+            if (!_session.isExpired) {            
                 if (!_session.isExpireAlertOn) {
                     var txt;
-                    var r = confirm("Do you want to continue session? Session will expire in ");
-                
+                    var r = confirm("Do you want to continue session? Session will expire in ");                
                     if (r == true) {
                         this.refresh();
                     } else {
                         window.clearInterval(this.timeoutID);
                         this.expire();
-                    }
-                    
-                } else {
-                   
+                    }                    
+                } else {                   
                     window.clearInterval(this.timeoutID);
-                    this.expire();
-                
+                    this.expire();                
                 }
-            } else {
-                
+            } else {                
                 this.exit();
             }
         },
